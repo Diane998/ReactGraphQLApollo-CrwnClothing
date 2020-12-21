@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styled from 'styled-components';
 
 import { ReactComponent as Icon } from '../../assets/shopping-bag.svg';
@@ -25,8 +26,8 @@ const ItemCount = styled.span`
   bottom: 12px;
 `;
 
-const Cart = ({ toggleCartVisibility, itemCount }) => (
-  <CartIcon onClick={toggleCartVisibility}>
+const Cart = ({ toggleCartHidden, itemCount }) => (
+  <CartIcon onClick={toggleCartHidden}>
     <ShoppingIcon className="shopping-icon" />
     <ItemCount className="item-count">{itemCount}</ItemCount>
   </CartIcon>

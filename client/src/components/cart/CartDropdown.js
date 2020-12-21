@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import styled from 'styled-components';
 import Button from '../buttons/Button';
@@ -34,26 +35,28 @@ const StyledButton = styled(Button)`
   margin-top: auto;
 `;
 
-const CartDropdown = ({ cartItems, history, toggleCartVisibility }) => (
-  <CartDropdownContainer>
-    <CartItems>
-      {cartItems.length ? (
-        cartItems.map(cartItem => (
-          <CartItem key={cartItem.id} item={cartItem} />
-        ))
-      ) : (
-        <EmptyMeassage>Your cart is empty</EmptyMeassage>
-      )}
-    </CartItems>
-    <StyledButton
-      onClick={() => {
-        history.push('/checkout');
-        toggleCartVisibility();
-      }}
-    >
-      GO TO CHECKOUT
-    </StyledButton>
-  </CartDropdownContainer>
-);
+const CartDropdown = ({ cartItems, history, toggleCartHidden }) => {
+  return (
+    <CartDropdownContainer>
+      <CartItems>
+        {cartItems.length ? (
+          cartItems.map(cartItem => (
+            <CartItem key={cartItem.id} item={cartItem} />
+          ))
+        ) : (
+          <EmptyMeassage>Your cart is empty</EmptyMeassage>
+        )}
+      </CartItems>
+      <StyledButton
+        onClick={() => {
+          history.push('/checkout');
+          toggleCartHidden();
+        }}
+      >
+        GO TO CHECKOUT
+      </StyledButton>
+    </CartDropdownContainer>
+  );
+};
 
-export default CartDropdown;
+export default withRouter(CartDropdown);
