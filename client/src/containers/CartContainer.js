@@ -1,13 +1,26 @@
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { toggleCartVisibility } from '../redux/actions/cartActions';
-import { selectCartItemsCount } from '../redux/selectors/cartSelectors';
+import React from 'react';
+import { gql } from '@apollo/client';
+import { graphql } from '@apollo/client/react/hoc';
+import { flowRight as compose } from 'lodash';
+
 import Cart from '../components/cart/Cart';
 
-const mapStateToProps = createStructuredSelector({
-  itemCount: selectCartItemsCount
-});
+const TOGGLE_CART_HIDDEN = gql`
+  mutation ToggleCartHidden {
+    toggleCartHidden @client
+  }
+`;
 
-const CartContainer = connect(mapStateToProps, { toggleCartVisibility })(Cart);
+const GET_ITEM_COUNT = gql`
+  {
+    itemCount @client
+  }
+`;
 
-export default CartContainer;
+const CartContainer = ({ data: { itemCount }, toggleCartHidden }) => (
+  <Cart toggleCartHidden={toggleCartHidden} itemCount={itemCount} />
+);
+export default compose(
+  graphql(GET_ITEM_COUNT),
+  graphql(TOGGLE_CART_HIDDEN, { name: 'toggleCartHidden' })
+)(CartContainer);
