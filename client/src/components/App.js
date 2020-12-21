@@ -8,10 +8,10 @@ import ShopPageContainer from '../containers/ShopPageContainer';
 import HeaderContainer from '../containers/HeaderContainer';
 import CheckoutPageContainer from '../containers/CheckoutPageContainer';
 
-const App = ({ checkUserSession, currentUser }) => {
-  useEffect(() => {
-    checkUserSession();
-  }, [checkUserSession]);
+const App = ({ currentUser }) => {
+  // useEffect(() => {
+  //   checkUserSession();
+  // }, [checkUserSession]);
 
   return (
     <BrowserRouter>
