@@ -2,6 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from '../redux/selectors/userSelector';
+import { signOutStart } from '../redux/actions/usersActions';
+
 import { ReactComponent as Logo } from '../assets/crown.svg';
 import CartContainer from '../containers/CartContainer';
 import CartDropdownContainer from '../containers/CartDropdownContainer';
@@ -54,4 +59,8 @@ const Header = ({ currentUser, hidden, signOutStart }) => (
   </HeaderContainer>
 );
 
-export default Header;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
+});
+
+export default connect(mapStateToProps, { signOutStart })(Header);

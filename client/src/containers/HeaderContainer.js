@@ -1,15 +1,19 @@
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectCartVisibility } from '../redux/selectors/cartSelectors';
-import { selectCurrentUser } from '../redux/selectors/userSelector';
-import { signOutStart } from '../redux/actions/usersActions';
+import React from 'react';
+
+import { gql } from '@apollo/client';
+import { graphql } from '@apollo/client/react/hoc';
+import { flowRight as compose } from 'lodash';
+
 import Header from '../components/Header';
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  hidden: selectCartVisibility
-});
+const GET_CART_HIDDEN = gql`
+  {
+    cartHidden @client
+  }
+`;
 
-const HeaderContainer = connect(mapStateToProps, { signOutStart })(Header);
+const HeaderContainer = ({ data: { cartHidden } }) => (
+  <Header hidden={cartHidden} />
+);
 
-export default HeaderContainer;
+export default compose(graphql(GET_CART_HIDDEN))(HeaderContainer);
