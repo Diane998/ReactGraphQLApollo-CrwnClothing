@@ -1,17 +1,27 @@
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
+import { gql } from '@apollo/client';
+import { graphql } from '@apollo/client/react/hoc';
+import { flowRight as compose } from 'lodash';
 
-import { createStructuredSelector } from 'reselect';
-import { selectCartItems } from '../redux/selectors/cartSelectors';
-import { toggleCartVisibility } from '../redux/actions/cartActions';
 import CartDropdown from '../components/cart/CartDropdown';
 
-const mapStateToProps = createStructuredSelector({
-  cartItems: selectCartItems
-});
+const TOGGLE_CART_HIDDEN = gql`
+  mutation ToggleCartHidden {
+    toggleCartHidden @client
+  }
+`;
 
-const CartDropdownContainer = withRouter(
-  connect(mapStateToProps, { toggleCartVisibility })(CartDropdown)
+const GET_CART_ITEMS = gql`
+  {
+    cartItems @client
+  }
+`;
+
+const CartDropdownContainer = ({ data: { cartItems }, toggleCartHidden }) => (
+  <CartDropdown cartItems={cartItems} toggleCartHidden={toggleCartHidden} />
 );
 
-export default CartDropdownContainer;
+export default compose(
+  graphql(TOGGLE_CART_HIDDEN, { name: 'toggleCartHidden' }),
+  graphql(GET_CART_ITEMS)
+)(CartDropdownContainer);
