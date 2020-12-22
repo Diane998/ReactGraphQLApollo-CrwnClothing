@@ -41,38 +41,42 @@ const Warning = styled.div`
   margin: 15px 0;
 `;
 
-const CheckoutPage = ({ cartItems, total }) => (
-  <CheackoutPageContainer>
-    <Header>
-      <HeaderBlock>
-        <span>Product</span>
-      </HeaderBlock>
-      <HeaderBlock>
-        <span>Descriptiion</span>
-      </HeaderBlock>
-      <HeaderBlock>
-        <span>Quantity</span>
-      </HeaderBlock>
-      <HeaderBlock>
-        <span>Price</span>
-      </HeaderBlock>
-      <HeaderBlock>
-        <span>Remove</span>
-      </HeaderBlock>
-    </Header>
+const CheckoutPage = ({ cartItems, total }) => {
+  return (
+    <CheackoutPageContainer>
+      <Header>
+        <HeaderBlock>
+          <span>Product</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Descriptiion</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Quantity</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Price</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Remove</span>
+        </HeaderBlock>
+      </Header>
 
-    {cartItems.map(cartItem => (
-      <CheckoutItemContainer key={cartItem.id} cartItem={cartItem} />
-    ))}
+      {cartItems
+        ? cartItems.map(cartItem => (
+            <CheckoutItemContainer key={cartItem.id} cartItem={cartItem} />
+          ))
+        : null}
 
-    <Total>TOTAL: ${total}</Total>
-    <Warning>
-      *Please use the following credit card for payments*
-      <br />
-      4242 4242 4242 4242 - Exp: Any future data - CVV: 123
-    </Warning>
-    <StripeCheckoutButton price={total} />
-  </CheackoutPageContainer>
-);
+      <Total>TOTAL: ${total}</Total>
+      <Warning>
+        *Please use the following credit card for payments*
+        <br />
+        4242 4242 4242 4242 - Exp: Any future data - CVV: 123
+      </Warning>
+      <StripeCheckoutButton price={total} />
+    </CheackoutPageContainer>
+  );
+};
 
 export default CheckoutPage;
