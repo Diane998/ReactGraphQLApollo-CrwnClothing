@@ -55,7 +55,7 @@ const Value = styled.span`
   margin: 0 10px;
 `;
 
-const CheckoutItem = ({ cartItem, clearItemFromCart, addItem, removeItem }) => {
+const CheckoutItem = ({ cartItem, addItem, removeItem, clearItemFromCart }) => {
   const { name, imageUrl, price, quantity } = cartItem;
 
   return (
