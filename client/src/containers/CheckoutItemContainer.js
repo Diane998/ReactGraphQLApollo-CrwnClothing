@@ -34,7 +34,7 @@ const CheckoutItemContainer = ({
       {...otherProps}
       addItem={item => addItemToCart({ variables: { item } })}
       removeItem={item => removeItemFromCart({ variables: { item } })}
-      clearItemFromCart={item => clearItemFromCart({ variables: item })}
+      clearItemFromCart={item => clearItemFromCart({ variables: { item } })}
     />
   );
 };
