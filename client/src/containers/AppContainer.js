@@ -1,17 +1,3 @@
-// import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
-// import { selectCurrentUser } from '../redux/selectors/userSelector';
-// import { checkUserSession } from '../redux/actions/usersActions';
-// import App from '../components/App';
-
-// const mapStateToProps = createStructuredSelector({
-//   currentUser: selectCurrentUser
-// });
-
-// const AppContainer = connect(mapStateToProps, { checkUserSession })(App);
-
-// export default AppContainer;
-
 import React from 'react';
 import { gql } from '@apollo/client';
 import { graphql } from '@apollo/client/react/hoc';
@@ -34,9 +20,7 @@ const SET_CURRENT_USER = gql`
 const AppContainer = ({ data: { currentUser }, setCurrentUser }) => (
   <App
     currentUser={currentUser}
-    setCurrentUser={currentUser =>
-      setCurrentUser({ variables: { currentUser } })
-    }
+    setCurrentUser={user => setCurrentUser({ variables: { user } })}
   />
 );
 
